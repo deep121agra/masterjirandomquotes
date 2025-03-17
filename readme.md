@@ -13,3 +13,5 @@ html
 css 
 js
 
+##  host link 
+https://masterjirandomquotes.vercel.app/
