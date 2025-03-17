@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Quotes</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+  
+  </style>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>I don't believe you have to be better than everybody else. I believe you have to be better than you ever thought you could be.</h1><!-- this is used to show our quotes-->
+    <h2>deepanshu</h2>   <!-- it is used a writer of a quates-->
+
+    <div class="tray">
+      <button onclick="fetching()">New Quote</button><!-- it is used to change a quates-->
+      <i class="fa-regular fa-clipboard"></i>    <!-- it is used to copy a clipboard-->
+    <a href="https://x.com/"> <i class="fa-brands fa-twitter"></i></a>  <!-- it is used to contain a twitter button-->
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+  
+  <script>
+    const h1 = document.querySelector('h1');   // it is used to select a h1 heading
+    const h2 = document.querySelector('h2');    // it is used to select a h2 heading
+    const i = document.querySelector('i');     // it is used to select a i tag
+    const container=document.querySelector('.container');   // it is a class selector
+    let data;
+    const arr=['garden.jpeg','hills.jpg','images.jpeg','mountaion.jpg','parasute.jpeg']  // it can contain a all of images adress stored in a array
+
+    async function fetching() {   // it can use to fetch a data from a api
+      try {
+        const quotes = await fetch('https://api.freeapi.app/api/v1/public/quotes/quote/random');
+        data = await quotes.json();
+        console.log(data);
+        h1.textContent = data.data.content;
+        h2.textContent = data.data.author;
+        randomgenenator();
+      } catch (error) {
+        console.log('Error fetching data:', error);
+      }
+    }
+
+    async function copying(data) {   // this is used to copy function whch is used to copy a api contect
+      try {
+        await navigator.clipboard.writeText(data);
+        alert('Content is copied');
+      } catch (err) {
+        console.log('Failed to copy');
+      }
+    }
+
+    i.addEventListener('click', () => {
+      if (data && data.data && data.data.content) {
+        copying(data.data.content);
+      } else {
+        alert('No content to copy!');
+      }
+    });
+    function randomgenenator(){
+      let  me=Math.floor((Math.random()*5)+1)
+      console.log(me);
+      
+      container.style.backgroundImage=`url(${arr[me]})`;
+  
+      
+    }
+
+  </script>
+</body>
+</html>
